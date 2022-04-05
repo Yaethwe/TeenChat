@@ -22,7 +22,8 @@ let me = paramaters.get("me");
 var list;
 const ddbb = firebase.database().ref().child('chats').child(chat);
 const userdata={};
-function loadData(){
+
+async function loadData(){
 	ddbb.get().then((snapshot)=>{
 		if (snapshot.exists()) {
 		list =snapshot.val();
@@ -57,6 +58,7 @@ function user(){
 		userdata.img= 'https://cdn-icons-png.flaticon.com/128/1534/1534072.png';
 	}
 }
+
 function load(){
 	while (body.firstChild) {
 		body.removeChild(body.lastChild);
@@ -82,22 +84,6 @@ function load(){
 		body.appendChild(box);
 		body.appendChild(br);
 	}
-}
-
-
-sentBtn.onclick=()=>{
-	ddbb.child('length').get().then((snapshot)=>{
-	if (snapshot.exists()) {
-		leng =snapshot.val();
-		create(leng);
-		loadData();
-	  } else {
-		console.log("No data available");
-	  }
-	}).catch((error) => {
-	  console.error(error);
-	}
-	);
 }
 var now;
 function create(l){
@@ -126,6 +112,7 @@ function create(l){
 	},
 	});
 }
+
 if (me){
 	user();
 	loadData();
@@ -133,8 +120,25 @@ if (me){
 	let na = prompt('What is your name?');
 	location.href=`index.html?chat=${chat}&me=${na}`;
 }
+
 ddbb.on('child_added', (snapshot) => {
     loadData();
 });
+
+sentBtn.onclick= ()=>{
+	ddbb.child('length').get().then((snapshot)=>{
+	if (snapshot.exists()) {
+		let leng =snapshot.val();
+		console.log(leng);
+		create(leng);
+		//loadData();
+	  } else {
+		console.log("No data available");
+	  }
+	}).catch((error) => {
+	  console.error(error);
+	}
+	);
+}
 
 
