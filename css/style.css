@@ -31,6 +31,7 @@ label{
 	border-top-left-radius:15px;
 	border-bottom-left-radius:15px;
 	padding:5px;
+	box-shadow: 5px 10px 5px #888888;
 }
 .sentBtn{
 	background-color:blue;
@@ -42,6 +43,7 @@ label{
 	border-top-right-radius:15px;
 	border-bottom-right-radius:15px;
 	padding:-5px;
+	box-shadow: 5px 10px 5px #888888;
 }
 
 .pp{
