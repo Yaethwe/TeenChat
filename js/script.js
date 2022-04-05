@@ -71,13 +71,13 @@ function load(){
 			box.style=`background-color:${list[i].config.bg};display:flex;justify-content:flex-end;`;
 			box.innerHTML=`
 			<img src="${list[i].PP}" alt="${list[i].from.name}'s photo" width="50px" height="50px" style="border-radius:20px;font-size:10px;padding:5px;background-color:skyblue;">
-			<label style='color:${list[i].config.fg};'><span style='font-size:18px;'>${list[i].message}</span><br> <span style='font-size:10px;'> ${list[i].time.ds} -  ${list[i].time.ts} user id : ${list[i].from.id} name: ${list[i].from.name}</span></label>
+			<label style='color:${list[i].config.fg};'><span style='font-size:40px;'>${list[i].message}</span><br> <span style='font-size:20px;'> ${list[i].time.ds} -  ${list[i].time.ts} user id : ${list[i].from.id} name: ${list[i].from.name}</span></label>
 			`;
 		} else {
 			box.style=`background-color:${list[i].config.bg};display:flex;justify-content:flex-start;`;
 			box.innerHTML=`
 			<img src="${list[i].PP}" alt="${list[i].from.name}'s photo" width="50px" height="50px" style="border-radius:20px;font-size:10px;padding:5px;background-color:skyblue;">
-			<label style='color:${list[i].config.fg};'><span style='font-size:18px;'>${list[i].message}</span><br> <span style='font-size:10px;'> ${list[i].time.ds} -  ${list[i].time.ts} user id : ${list[i].from.id} name: ${list[i].from.name}</span></label>
+			<label style='color:${list[i].config.fg};'><span style='font-size:40px;'>${list[i].message}</span><br> <span style='font-size:20px;'> ${list[i].time.ds} -  ${list[i].time.ts} user id : ${list[i].from.id} name: ${list[i].from.name}</span></label>
 			`;
 		}
 		
@@ -111,6 +111,7 @@ function create(l){
 		ts:`${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`,
 	},
 	});
+	msg.value='';
 }
 
 if (me){
