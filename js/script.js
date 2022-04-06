@@ -2,8 +2,21 @@ const body = document.querySelector('#body');
 const sd = document.querySelector('#sd');
 const sentBtn = document.querySelector('#sentBtn');
 const msg = document.querySelector('#msg');
+const prof = document.querySelector('#profile');
+const profilePicture = document.querySelector('#profilePicture');
+const usernameL = document.querySelector('#usernameL');
+const idL = document.querySelector('#idL');
+const bgI = document.querySelector('#bgI');
+const fgI = document.querySelector('#fgI');
 
-const firebaseConfig = {
+bgI.addEventListener('change',()=>{
+	ud.bg=bgI.value;
+});
+fgI.addEventListener('change',()=>{
+	ud.fg=fgI.value;
+});
+
+const fC = {
   apiKey: "AIzaSyBWPLhifWzVgL8SblP7d-VBwvbbyzq_HLk",
   authDomain: "mezalidatacenter.firebaseapp.com",
   databaseURL: "https://mezalidatacenter-default-rtdb.firebaseio.com",
@@ -14,14 +27,31 @@ const firebaseConfig = {
   measurementId: "G-K0K18WXXC6"
 };
 
-firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(fC);
+prof.style.display='none';
+sd.style.display='none';
+
+let list,ddbb;
+let chat,me;
 let url = location.href;
 let paramaters = (new URL(url)).searchParams;
-let chat= paramaters.get("chat");
-let me = paramaters.get("me");
-var list;
-const ddbb = firebase.database().ref().child('chats').child(chat);
-const userdata={};
+const userdata = {};
+const ud = 
+{
+	chat:"ch001",
+	data:{
+		username:"unknown",
+		id:404,
+		config:{
+			bg:"skyblue",
+			fg:"white",
+		},
+		img:"https://icons.iconarchive.com/icons/aha-soft/free-large-boss/512/Admin-icon.png",
+	},
+};
+//app start here
+user();
+loadData();
 
 async function loadData(){
 	ddbb.get().then((snapshot)=>{
@@ -36,30 +66,32 @@ async function loadData(){
 	}
 	);
 }
-sd.style.display='none';
+
+let pgo = document.querySelector('#profilego');
+	//styling the profile go button
+	pgo.style=`
+	border-radius:20px;
+	background-color:wheat;
+	width:60;
+	height:60;
+	`;
 function user(){
-	if(me=="YeaeThawe"){
-		userdata.id=2;
+	if (paramaters.get("chat")){
+		let x=paramaters.get("chat")+'=';
+		let enc = atob(x);
+		let userD = JSON.parse(enc);
+		ud.id=userD.data.id;
+		ud.name=userD.data.username;
+		ud.bg=userD.data.config.bg;
+		ud.fg= userD.data.config.fg;
+		ud.img= userD.data.img;
+		
 		sd.style.display='flex';
-		userdata.bg='skyblue';
-		userdata.fg='white';
-		userdata.img= 'https://cdn-icons-png.flaticon.com/128/560/560216.png';
-	}else if (me=="NyanKaungSet"){
-		userdata.id=3;
-		sd.style.display='flex';
-		userdata.bg='orange';
-		userdata.fg='white';
-		userdata.img= 'https://cdn-icons-png.flaticon.com/128/2922/2922510.png';
-	}else{
-		userdata.id=anonymous;
-		sd.style.display='flex';
-		userdata.bg='#822323';
-		userdata.fg='white';
-		userdata.img= 'https://cdn-icons-png.flaticon.com/128/1534/1534072.png';
+		ddbb = firebase.database().ref().child('chats').child(ud.chat);
 	}
 }
 
-function load(){
+async function load(){
 	while (body.firstChild) {
 		body.removeChild(body.lastChild);
 	}
@@ -67,7 +99,7 @@ function load(){
 		let box = document.createElement('div');
 		let br = document.createElement('br');
 		box.className='box01';
-		if(userdata.id==list[i].from.id) {
+		if(ud.id==list[i].from.id) {
 			box.style=`background-color:${list[i].config.bg};display:flex;justify-content:flex-end;`;
 			box.innerHTML=`
 			<label style='color:${list[i].config.fg};'><span style='font-size:40px;'>${list[i].message}</span><br> <span style='font-size:20px;'> ${list[i].time.ds} -  ${list[i].time.ts} user id : ${list[i].from.id} name: ${list[i].from.name}</span></label>
@@ -88,45 +120,42 @@ function load(){
 var now;
 function create(l){
 	now = new Date();
-    var hour = now.getHours();
-    var minute = now.getMinutes();
-    var second = now.getSeconds();
+    var hour =()=>{
+		let x = now.getHours();
+		let minute = now.getMinutes();
+		let second = now.getSeconds();
+		if(x>12){
+			return (x-12)+`:${minute}:${second} PM`;
+		}else{
+			return x+`:${minute}:${second} AM`;
+		}
+	}
+	
 	ddbb.update({
 		length:l+1,
 	});
 	ddbb.child(l+1).set({
 	config:{
-		bg:userdata.bg,
-		fg:userdata.fg,
+		bg:ud.bg,
+		fg:ud.fg,
 	},
 	message:`${msg.value}`,
 	from:{
-		id:userdata.id,
-		name:me,
+		id:ud.id,
+		name:ud.name,
 	},
-	PP:`${userdata.img}`,
+	PP:`${ud.img}`,
 	encrypted:false,
 	time:{
 		ds:`${now.getMonth()+1}/${now.getDate()}/${now.getFullYear()}`,
-		ts:`${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`,
+		ts:`${hour()}`,
 	},
 	});
 	msg.value='';
+	console.log('new message posted');
 }
 
-if (me){
-	user();
-	loadData();
-}else{
-	let na = prompt('What is your name?');
-	location.href=`index.html?chat=${chat}&me=${na}`;
-}
-
-ddbb.on('child_added', (snapshot) => {
-    loadData();
-});
-
-sentBtn.onclick= ()=>{
+function send(){
 	ddbb.child('length').get().then((snapshot)=>{
 	if (snapshot.exists()) {
 		let leng =snapshot.val();
@@ -141,5 +170,23 @@ sentBtn.onclick= ()=>{
 	}
 	);
 }
+
+sentBtn.onclick= ()=>{
+	send();
+}
+
+function profileShow(){
+	prof.className='profile';
+}
+
+msg.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+      send();
+    }
+});
+
+ddbb.on('child_added', (snapshot) => {
+	loadData();
+});
 
 

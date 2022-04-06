@@ -7,6 +7,11 @@
 		<title>TeenChat</title>
 	</head>
 	<body>
+		<div id='Login'>
+			<div id='nav'>
+				<a id='profilego'><img src='img/profilego.jpg' alt='PROFILE'></a>
+			</div>
+		</div>
 		<div id='chat'>
 			<div id='body'>
 			</div>
@@ -14,17 +19,19 @@
 				<input type='text' class='sentTxt' id='msg'><input type='button' class='sentBtn' value='sent' id='sentBtn'>
 			</div>
 		</div>
-		<div id='Login'>
+		<div id="profile">
+			<img id='profilePicture'><br>
+			<label id='usernameL'></label><br>
+			<label id='idL'></label><br>
+			<label>Background Color:</label><input id='bgI' type="color" title="Background Color Of Your Chat"><br>
+			<label>Foreground Color:</label><input id='fgI' type="color" title="Foreground Color Of Your Chat">
 		</div>
 	</body>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-<!--
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
--->
-
-	<script src="js/script.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+<script src="js/script.js"></script>
 </html>
 
