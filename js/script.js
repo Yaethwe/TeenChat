@@ -38,7 +38,7 @@ let paramaters = (new URL(url)).searchParams;
 const userdata = {};
 const ud = 
 {
-	chat:"ch001",
+	chat:"",
 	data:{
 		username:"unknown",
 		id:404,
@@ -49,6 +49,7 @@ const ud =
 		img:"https://icons.iconarchive.com/icons/aha-soft/free-large-boss/512/Admin-icon.png",
 	},
 };
+
 //app start here
 user();
 loadData();
@@ -89,6 +90,7 @@ function user(){
 		ud.bg=userD.data.config.bg;
 		ud.fg= userD.data.config.fg;
 		ud.img= userD.data.img;
+		ud.chat=userD.chat
 		
 		sd.style.display='flex';
 		ddbb = firebase.database().ref().child('chats').child(ud.chat);
@@ -157,7 +159,6 @@ function create(l){
 	},
 	});
 	msg.value='';
-	console.log('new message posted');
 }
 
 function send(){
@@ -166,7 +167,6 @@ function send(){
 		let leng =snapshot.val();
 		console.log(leng);
 		create(leng);
-		//loadData();
 	  } else {
 		console.log("No data available");
 	  }
