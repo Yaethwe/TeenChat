@@ -67,14 +67,18 @@ async function loadData(){
 	);
 }
 
-let pgo = document.querySelector('#profilego');
+const pgo = document.querySelector('#profilego');
 	//styling the profile go button
-	pgo.style=`
+pgo.style=`
 	border-radius:20px;
 	background-color:wheat;
-	width:60;
-	height:60;
-	`;
+	width:50px;
+	height:50px;
+`;
+
+pgo.onclick=()=>{
+	profileShow();
+}
 function user(){
 	if (paramaters.get("chat")){
 		let x=paramaters.get("chat")+'=';
@@ -98,14 +102,15 @@ async function load(){
 	for (let i = 1;i<=list.length;i++) {
 		let box = document.createElement('div');
 		let br = document.createElement('br');
-		box.className='box01';
 		if(ud.id==list[i].from.id) {
+			box.className='box02';
 			box.style=`background-color:${list[i].config.bg};display:flex;justify-content:flex-end;`;
 			box.innerHTML=`
 			<label style='color:${list[i].config.fg};'><span style='font-size:40px;'>${list[i].message}</span><br> <span style='font-size:20px;'> ${list[i].time.ds} -  ${list[i].time.ts} user id : ${list[i].from.id} name: ${list[i].from.name}</span></label>
 			<img src="${list[i].PP}" alt="${list[i].from.name}'s photo" width="50px" height="50px" class="pp">
 			`;
 		} else {
+			box.className='box01';
 			box.style=`background-color:${list[i].config.bg};display:flex;justify-content:flex-start;`;
 			box.innerHTML=`
 			<img src="${list[i].PP}" alt="${list[i].from.name}'s photo" width="50px" height="50px" class="pp">
@@ -176,7 +181,8 @@ sentBtn.onclick= ()=>{
 }
 
 function profileShow(){
-	prof.className='profile';
+	//prof.style.display='flex';
+	//prof.className='profile';
 }
 
 msg.addEventListener('keypress', function (e) {
