@@ -40,6 +40,11 @@ const ud =
 		},
 		img:"https://icons.iconarchive.com/icons/aha-soft/free-large-boss/512/Admin-icon.png",
 	},
+	owner:{
+		id:404,
+		pass:" ",
+		name:" ",
+	},
 };
 
 //app start here
@@ -262,7 +267,7 @@ function createChat(id,ownerID,ownerName){
 				id:ud.owner.id,
 				password:ud.owner.pass,
 			}
-			
+			alert('Your chat was successfully created.');
 			location.href=`https://gardennet.netlify.app/?login=${btoa(JSON.stringify(loginD))}`;
 		}
 	});
