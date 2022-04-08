@@ -62,16 +62,32 @@ class Message {
 		this.oid=oid;
 	}
 	dellete(){
+		if(confirm('Are you sure you want to dellete this message?')){
+			if (this.oid==ud.id){
+				ddbb.child(this.index).update({
+					message:"deleted message",
+					config:{
+						bg:'gray',
+						fg:'white'
+					},
+				});
+			} else {
+				alert('Unable to dellete.');
+			}
+		}
+	}
+	edit(){
 		if (this.oid==ud.id){
+			let editedTxt = prompt("Enter your edited text:");
 			ddbb.child(this.index).update({
-				message:"deleted message",
+				message:editedTxt,
 				config:{
-					bg:'gray',
-					fg:'white'
+					bg:ud.bg,
+					fg:ud.fg
 				},
 			});
 		} else {
-			alert('Unable to dellete.');
+			alert('Unable to edit.');
 		}
 	}
 }
@@ -148,7 +164,8 @@ async function load(){
 				<label style='color:${list[i].config.fg};'><span style='font-size:40px;'>${list[i].message}</span><br> <span style='font-size:20px;'> ${list[i].time.ds} -  ${list[i].time.ts} user id : ${list[i].from.id} name: ${list[i].from.name}</span></label>
 				<div style='display:flex;flex-direction:column;'>
 				<img src="${list[i].PP}" alt="${list[i].from.name}'s photo" width="50px" height="50px" class="pp">
-				<button onclick="msgArray[${i}-1].dellete()" style="background-color:red;color:white;border:0px;border-radius:10px;padding:5px;font-size:15px">delete message</button>
+				<button onclick="msgArray[${i}-1].dellete()" style="background-color:red;color:white;border:0px;border-top-right-radius:10px;border-top-left-radius:10px;padding:5px;font-size:15px">delete message</button>
+				<button onclick="msgArray[${i}-1].edit()" style="background-color:gray;color:white;border:0px;border-bottom-right-radius:10px;border-bottom-left-radius:10px;padding:5px;font-size:15px">edit message</button>
 				</div>
 				`;
 			}
