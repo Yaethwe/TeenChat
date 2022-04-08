@@ -36,6 +36,7 @@ let chat,me;
 let url = location.href;
 let paramaters = (new URL(url)).searchParams;
 const userdata = {};
+const msgArray = [];
 const ud = 
 {
 	chat:"",
@@ -53,6 +54,27 @@ const ud =
 //app start here
 user();
 loadData();
+
+
+class Message {
+	constructor(index,oid){
+		this.index=index;
+		this.oid=oid;
+	}
+	dellete(){
+		if (this.oid==ud.id){
+			ddbb.child(this.index).update({
+				message:"deleted message",
+				config:{
+					bg:'gray',
+					fg:'white'
+				},
+			});
+		} else {
+			alert('Unable to dellete.');
+		}
+	}
+}
 
 async function loadData(){
 	ddbb.get().then((snapshot)=>{
@@ -98,19 +120,38 @@ function user(){
 }
 
 async function load(){
+	while (msgArray.length>0) {
+		msgArray.pop()
+	}
 	while (body.firstChild) {
 		body.removeChild(body.lastChild);
 	}
 	for (let i = 1;i<=list.length;i++) {
 		let box = document.createElement('div');
 		let br = document.createElement('br');
+		msgArray.push(new Message(i,list[i].from.id));
 		if(ud.id==list[i].from.id) {
-			box.className='box02';
-			box.style=`background-color:${list[i].config.bg};display:flex;justify-content:flex-end;`;
-			box.innerHTML=`
-			<label style='color:${list[i].config.fg};'><span style='font-size:40px;'>${list[i].message}</span><br> <span style='font-size:20px;'> ${list[i].time.ds} -  ${list[i].time.ts} user id : ${list[i].from.id} name: ${list[i].from.name}</span></label>
-			<img src="${list[i].PP}" alt="${list[i].from.name}'s photo" width="50px" height="50px" class="pp">
-			`;
+			if(list[i].message=="deleted message"){
+				box.className='box02';
+				box.style=`background-color:${list[i].config.bg};display:flex;justify-content:flex-end;`;
+				box.innerHTML=`
+				<label style='color:${list[i].config.fg};'><span style='font-size:40px;'>${list[i].message}</span><br> <span style='font-size:20px;'> ${list[i].time.ds} -  ${list[i].time.ts} user id : ${list[i].from.id} name: ${list[i].from.name}</span></label>
+				<div style='display:flex;flex-direction:column;'>
+				<img src="${list[i].PP}" alt="${list[i].from.name}'s photo" width="50px" height="50px" class="pp">
+				</div>
+				`;
+			}
+			else{
+				box.className='box02';
+				box.style=`background-color:${list[i].config.bg};display:flex;justify-content:flex-end;`;
+				box.innerHTML=`
+				<label style='color:${list[i].config.fg};'><span style='font-size:40px;'>${list[i].message}</span><br> <span style='font-size:20px;'> ${list[i].time.ds} -  ${list[i].time.ts} user id : ${list[i].from.id} name: ${list[i].from.name}</span></label>
+				<div style='display:flex;flex-direction:column;'>
+				<img src="${list[i].PP}" alt="${list[i].from.name}'s photo" width="50px" height="50px" class="pp">
+				<button onclick="msgArray[${i}-1].dellete()" style="background-color:red;color:white;border:0px;border-radius:10px;padding:5px;font-size:15px">delete message</button>
+				</div>
+				`;
+			}
 		} else {
 			box.className='box01';
 			box.style=`background-color:${list[i].config.bg};display:flex;justify-content:flex-start;`;
@@ -195,4 +236,7 @@ ddbb.on('child_added', (snapshot) => {
 	loadData();
 });
 
+ddbb.on('child_changed', (snapshot) => {
+	loadData();
+});
 
