@@ -75,6 +75,7 @@ class Message {
 	edit(){
 		if (this.oid==ud.id){
 			let editedTxt = prompt("Enter your edited text:");
+			if (editedTxt){
 			ddbb.child(this.index).update({
 				message:editedTxt,
 				config:{
@@ -82,6 +83,7 @@ class Message {
 					fg:ud.fg
 				},
 			});
+			}
 		} else {
 			alert('Unable to edit.');
 		}
