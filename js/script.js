@@ -2,19 +2,11 @@ const body = document.querySelector('#body');
 const sd = document.querySelector('#sd');
 const sentBtn = document.querySelector('#sentBtn');
 const msg = document.querySelector('#msg');
-const prof = document.querySelector('#profile');
 const profilePicture = document.querySelector('#profilePicture');
 const usernameL = document.querySelector('#usernameL');
 const idL = document.querySelector('#idL');
-const bgI = document.querySelector('#bgI');
-const fgI = document.querySelector('#fgI');
-
-bgI.addEventListener('change',()=>{
-	ud.bg=bgI.value;
-});
-fgI.addEventListener('change',()=>{
-	ud.fg=fgI.value;
-});
+const ownerDiv = document.querySelector('#owner');
+const functionDiv = document.querySelector('#functions');
 
 const fC = {
   apiKey: "AIzaSyBWPLhifWzVgL8SblP7d-VBwvbbyzq_HLk",
@@ -28,8 +20,7 @@ const fC = {
 };
 
 firebase.initializeApp(fC);
-prof.style.display='none';
-sd.style.display='none';
+
 
 let list,ddbb;
 let chat,me;
@@ -54,7 +45,7 @@ const ud =
 //app start here
 user();
 loadData();
-
+sd.style.display='none';
 
 class Message {
 	constructor(index,oid){
@@ -96,6 +87,13 @@ async function loadData(){
 	ddbb.get().then((snapshot)=>{
 		if (snapshot.exists()) {
 		list =snapshot.val();
+		ownerDiv.innerHTML=`<label style="color:orange;font-family:sans-serif;font-size:30px;">${list.owner.name}'s Chat</label><label style='color:gray;font-family:sans-serif;font-size:20px;'>   user id: ${list.owner.id}</label>`;
+		if(list.owner.name==ud.name){
+			functionDiv.innerHTML=`
+			<div style="display:flex;flex-direction:column;">
+				<a style="background-color:aqua;color:red;font-family:sans-serif;font-size:30px;padding:5px;cursor:pointer;" onclick="cleanChat()">clean chat</a>
+			</div>`;
+		}
 		load()
 	  } else {
 		console.log("No data available");
@@ -106,32 +104,38 @@ async function loadData(){
 	);
 }
 
+
+
 const pgo = document.querySelector('#profilego');
 	//styling the profile go button
-pgo.style=`
-	border-radius:20px;
-	background-color:wheat;
-	width:50px;
-	height:50px;
-`;
 
 pgo.onclick=()=>{
 	profileShow();
 }
 function user(){
-	if (paramaters.get("chat")){
-		let x=paramaters.get("chat")+'=';
+	if(paramaters.get("new")){
+		let x=paramaters.get("new");
 		let enc = atob(x);
-		let userD = JSON.parse(enc);
-		ud.id=userD.data.id;
-		ud.name=userD.data.username;
-		ud.bg=userD.data.config.bg;
-		ud.fg= userD.data.config.fg;
-		ud.img= userD.data.img;
-		ud.chat=userD.chat
-		
-		sd.style.display='flex';
-		ddbb = firebase.database().ref().child('chats').child(ud.chat);
+		let infoD = JSON.parse(enc);
+		ud.name = infoD.name;
+		ud.owner.id = infoD.owner.id;
+		ud.owner.name = infoD.owner.name;
+		createChat(ud.name,ud.owner.id,ud.owner.name);
+	}else{
+		if (paramaters.get("chat")){
+			let x=paramaters.get("chat")+'=';
+			let enc = atob(x);
+			let userD = JSON.parse(enc);
+			ud.id=userD.data.id;
+			ud.name=userD.data.username;
+			ud.bg=userD.data.config.bg;
+			ud.fg= userD.data.config.fg;
+			ud.img= userD.data.img;
+			ud.chat=userD.chat
+			sd.style.display='flex';
+			ddbb = firebase.database().ref().child('chats').child(ud.chat);
+			sd.style.display='flex';
+		}
 	}
 }
 
@@ -142,6 +146,7 @@ async function load(){
 	while (body.firstChild) {
 		body.removeChild(body.lastChild);
 	}
+	sd.style.display='flex';
 	for (let i = 1;i<=list.length;i++) {
 		let box = document.createElement('div');
 		let br = document.createElement('br');
@@ -234,13 +239,38 @@ function send(){
 	);
 }
 
-sentBtn.onclick= ()=>{
-	send();
+function createChat(id,ownerID,ownerName){
+	firebase.database().ref().child('chats').child(id).get().then(snapshot=>{
+		if(snapshot.exists()){
+			alert('Your chat name was already taken');
+		}else{
+			firebase.database().ref().child('chats').child(id).set({
+				length:0,
+				owner:{
+					id:ownerID,
+					name:ownerName,
+				},
+			});
+		}
+	});
 }
 
-function profileShow(){
-	//prof.style.display='flex';
-	//prof.className='profile';
+function cleanChat(){
+	if(confirm('Are you sure you want to clean this chat? This will dellete all of your chats in this chat box.')){
+		firebase.database().ref().child('chats').child(ud.chat).set({
+			length:0,
+			owner:{
+				id:ud.id,
+				name:ud.name,
+			},
+		});
+		alert('Chat was cleaned successfully!');
+		sd.style.display='flex';
+	}
+}
+
+sentBtn.onclick= ()=>{
+	send();
 }
 
 msg.addEventListener('keypress', function (e) {

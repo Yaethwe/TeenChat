@@ -89,3 +89,23 @@ label{
 	padding:5px;
 	font-size:16px;
 }
+
+#navigator{
+	background-color:#fafafa;
+	display:flex;
+	justify-content: space-between;
+	position:sticky;
+	top:0;
+	opacity:0.9;
+}
+
+#profilego{
+	width:50px;
+	height:50px;
+}
+
+.funcMenu{
+	color:wheat;
+	width:50px;
+	height:50px;
+}
