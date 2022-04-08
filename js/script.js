@@ -120,6 +120,7 @@ function user(){
 		ud.name = infoD.name;
 		ud.owner.id = infoD.owner.id;
 		ud.owner.name = infoD.owner.name;
+		ud.owner.pass = infoD.owner.pass;
 		createChat(ud.name,ud.owner.id,ud.owner.name);
 	}else{
 		if (paramaters.get("chat")){
@@ -243,6 +244,12 @@ function createChat(id,ownerID,ownerName){
 	firebase.database().ref().child('chats').child(id).get().then(snapshot=>{
 		if(snapshot.exists()){
 			alert('Your chat name was already taken');
+			let loginD ={
+				id:ud.owner.id,
+				password:ud.owner.pass,
+			}
+			
+			location.href=`https://gardennet.netlify.app/?login=${btoa(JSON.stringify(loginD))}`;
 		}else{
 			firebase.database().ref().child('chats').child(id).set({
 				length:0,
@@ -251,6 +258,12 @@ function createChat(id,ownerID,ownerName){
 					name:ownerName,
 				},
 			});
+			let loginD ={
+				id:ud.owner.id,
+				password:ud.owner.pass,
+			}
+			
+			location.href=`https://gardennet.netlify.app/?login=${btoa(JSON.stringify(loginD))}`;
 		}
 	});
 }
