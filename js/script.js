@@ -131,7 +131,7 @@ function user(){
 		createChat(ud.name,ud.owner.id,ud.owner.name);
 	}else{
 		if (paramaters.get("chat")){
-			let x=paramaters.get("chat")+'=';
+			let x=paramaters.get("chat");
 			let enc = atob(x);
 			let userD = JSON.parse(enc);
 			ud.id=userD.data.id;
