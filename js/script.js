@@ -7,6 +7,7 @@ const usernameL = document.querySelector('#usernameL');
 const idL = document.querySelector('#idL');
 const ownerDiv = document.querySelector('#owner');
 const functionDiv = document.querySelector('#functions');
+const D404 = document.querySelector("#404D");
 
 const fC = {
   apiKey: "AIzaSyBWPLhifWzVgL8SblP7d-VBwvbbyzq_HLk",
@@ -256,7 +257,7 @@ function createChat(id,ownerID,ownerName){
 				password:ud.owner.pass,
 			}
 			
-			location.href=`https://gardennet.netlify.app/?login=${btoa(JSON.stringify(loginD))}`;
+			ud.owner.name=="c-d"?close():location.href=`https://gardennet.netlify.app/?login=${btoa(JSON.stringify(loginD))}`;
 		}else{
 			firebase.database().ref().child('chats').child(id).set({
 				length:0,
@@ -270,7 +271,7 @@ function createChat(id,ownerID,ownerName){
 				password:ud.owner.pass,
 			}
 			alert('Your chat was successfully created.');
-			location.href=`https://gardennet.netlify.app/?login=${btoa(JSON.stringify(loginD))}`;
+			ud.owner.name=="c-d"?close():location.href=`https://gardennet.netlify.app/?login=${btoa(JSON.stringify(loginD))}`;
 		}
 	});
 }
