@@ -247,17 +247,12 @@ function send(){
 	}
 	);
 }
-
 function createChat(id,ownerID,ownerName){
 	firebase.database().ref().child('chats').child(id).get().then(snapshot=>{
 		if(snapshot.exists()){
-			alert('Your chat name was already taken');
-			let loginD ={
-				id:ud.owner.id,
-				password:ud.owner.pass,
-			}
-			
-			ud.owner.name=="c-d"?close():location.href=`https://gardennet.netlify.app/?login=${btoa(JSON.stringify(loginD))}`;
+
+			alert('Your chat name was already taken')
+			close()
 		}else{
 			firebase.database().ref().child('chats').child(id).set({
 				length:0,
@@ -266,12 +261,8 @@ function createChat(id,ownerID,ownerName){
 					name:ownerName,
 				},
 			});
-			let loginD ={
-				id:ud.owner.id,
-				password:ud.owner.pass,
-			}
 			alert('Your chat was successfully created.');
-			ud.owner.name=="c-d"?close():location.href=`https://gardennet.netlify.app/?login=${btoa(JSON.stringify(loginD))}`;
+			close();
 		}
 	});
 }
