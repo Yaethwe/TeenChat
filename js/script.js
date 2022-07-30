@@ -7,7 +7,7 @@ const usernameL = document.querySelector('#usernameL');
 const idL = document.querySelector('#idL');
 const ownerDiv = document.querySelector('#owner');
 const functionDiv = document.querySelector('#functions');
-const D404 = document.querySelector("#404D");
+//const D404 = document.querySelector("#404D");
 
 const fC = {
   apiKey: "AIzaSyBWPLhifWzVgL8SblP7d-VBwvbbyzq_HLk",
