@@ -186,15 +186,28 @@ async function load(){
 				`;
 			}
 		} else {
-			box.className=`message frnd`;
-			box.innerHTML=`
-					<div style='display:flex;flex-direction:column;'>
-						<img src="${list[i].PP}" alt="${list[i].from.name}'s photo" width="50px" height="50px" class="pp">
-					</div>
-					<div class="frnd-msg" style="background-color:${list[i].config.bg};color:${list[i].config.fg};">
-						<label style='color:${list[i].config.fg};'><span style='font-size:40px;'>${list[i].message}</span><br> <span style='font-size:20px;'> ${list[i].time.ds} -  ${list[i].time.ts} user id: encrypted name: ${list[i].from.name}</span></label>
-					</div>
-			`;
+			if(list[i].message=="deleted message"){
+				box.className=`message frnd`;
+				box.innerHTML=`
+						<div style='display:flex;flex-direction:column;'>
+							<img src="${list[i].PP}" alt="${list[i].from.name}'s photo" width="50px" height="50px" class="pp">
+						</div>
+						<div class="del-msg-frnd" style="background-color:${list[i].config.bg};color:${list[i].config.fg};">
+							<label style='color:${list[i].config.fg};'><span style='font-size:40px;'>${list[i].message}</span><br> <span style='font-size:20px;'> ${list[i].time.ds} -  ${list[i].time.ts} name: ${list[i].from.name}</span></label>
+						</div>
+				`;
+			}
+			else{
+				box.className=`message frnd`;
+				box.innerHTML=`
+						<div style='display:flex;flex-direction:column;'>
+							<img src="${list[i].PP}" alt="${list[i].from.name}'s photo" width="50px" height="50px" class="pp">
+						</div>
+						<div class="frnd-msg" style="background-color:${list[i].config.bg};color:${list[i].config.fg};">
+							<label style='color:${list[i].config.fg};'><span style='font-size:40px;'>${list[i].message}</span><br> <span style='font-size:20px;'> ${list[i].time.ds} -  ${list[i].time.ts} user id: encrypted name: ${list[i].from.name}</span></label>
+						</div>
+				`;
+			}
 			//user id : ${list[i].from.id}
 		}
 		

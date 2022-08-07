@@ -51,6 +51,25 @@ body{
     background: linear-gradient(135deg, #808080 0%, #808080 50%, transparent 50%, transparent);
 }
 
+.del-msg-frnd{
+    position: relative;
+    width: fit-content;
+    padding: 10px;
+    margin: 10px 20px;
+    border-radius: 0px 10px 10px 10px;
+    background-color: #f5f5f5;
+}
+
+.del-msg-frnd::before{
+	width:20px;
+    height:20px;
+    content:'';
+    position:absolute;
+    top:0;
+    left:-17px;
+    background: linear-gradient(225deg, #808080 0%, #808080 50%, transparent 50%, transparent);
+}
+
 
 .frnd{
     justify-content: left;
