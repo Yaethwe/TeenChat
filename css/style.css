@@ -93,6 +93,7 @@ label{
 #navigator{
 	background-color:#fafafa;
 	display:flex;
+	z-index: 999999;
 	justify-content: space-between;
 	position:sticky;
 	top:0;

@@ -28,7 +28,7 @@ body{
     position:absolute;
     top:0;
     right:-17px;
-    background: linear-gradient(135deg, #0f03ff 0%, #0f03ff 50%, transparent 50%, transparent);
+    background: linear-gradient(135deg, #008000 0%, #008000 50%, transparent 50%, transparent);
 }
 
 .del-msg{
@@ -37,7 +37,7 @@ body{
     padding: 10px;
     margin: 10px 20px;
     border-radius: 10px 0px 10px 10px;
-    background-color: #008000;
+    background-color: #808080;
     color: #fff;
 }
 
@@ -67,7 +67,7 @@ body{
     position:absolute;
     top:0;
     left:-17px;
-    background: linear-gradient(225deg, #808080 0%, #808080 50%, transparent 50%, transparent);
+    background: linear-gradient(225deg, #f5f5f5 0%, #f5f5f5 50%, transparent 50%, transparent);
 }
 
 
@@ -89,5 +89,5 @@ body{
     position:absolute;
     top:0;
     left:-17px;
-    background: linear-gradient(225deg, #0f03ff 0%,#0f03ff 50%, transparent 50%, transparent);
+    background: linear-gradient(225deg, #f5f5f5 0%,#f5f5f5 50%, transparent 50%, transparent);
 }
