@@ -162,34 +162,40 @@ async function load(){
 		msgArray.push(new Message(i,list[i].from.id));
 		if(ud.id==list[i].from.id) {
 			if(list[i].message=="deleted message"){
-				box.className='box02';
-				box.style=`background-color:${list[i].config.bg};display:flex;justify-content:flex-end;`;
+				box.className=`message mine`;
 				box.innerHTML=`
-				<label style='color:${list[i].config.fg};'><span style='font-size:40px;'>${list[i].message}</span><br> <span style='font-size:20px;'> ${list[i].time.ds} -  ${list[i].time.ts} user id : ${list[i].from.id} name: ${list[i].from.name}</span></label>
-				<div style='display:flex;flex-direction:column;'>
-				<img src="${list[i].PP}" alt="${list[i].from.name}'s photo" width="50px" height="50px" class="pp">
-				</div>
+						<div class="del-msg" style="background-color:${list[i].config.bg};color:${list[i].config.fg};">
+							<label style='color:${list[i].config.fg};'><span style='font-size:40px;'>${list[i].message}</span><br> <span style='font-size:20px;'> ${list[i].time.ds} -  ${list[i].time.ts} name: ${list[i].from.name}</span></label>
+						</div>
+						<div style='display:flex;flex-direction:column;'>
+							<img src="${list[i].PP}" alt="${list[i].from.name}'s photo" width="50px" height="50px" class="pp">
+						</div>
 				`;
 			}
 			else{
-				box.className='box02';
-				box.style=`background-color:${list[i].config.bg};display:flex;justify-content:flex-end;`;
+				box.className=`message mine`;
 				box.innerHTML=`
-				<label style='color:${list[i].config.fg};'><span style='font-size:40px;'>${list[i].message}</span><br> <span style='font-size:20px;'> ${list[i].time.ds} -  ${list[i].time.ts} user id : ${list[i].from.id} name: ${list[i].from.name}</span></label>
-				<div style='display:flex;flex-direction:column;'>
-				<img src="${list[i].PP}" alt="${list[i].from.name}'s photo" width="50px" height="50px" class="pp">
-				<button onclick="msgArray[${i}-1].dellete()" style="background-color:red;color:white;border:0px;border-top-right-radius:10px;border-top-left-radius:10px;padding:5px;font-size:15px">delete message</button>
-				<button onclick="msgArray[${i}-1].edit()" style="background-color:gray;color:white;border:0px;border-bottom-right-radius:10px;border-bottom-left-radius:10px;padding:5px;font-size:15px">edit message</button>
-				</div>
+						<div class="my-msg" style="background-color:${list[i].config.bg};color:${list[i].config.fg};">
+							<label style='color:${list[i].config.fg};'><span style='font-size:40px;'>${list[i].message}</span><br> <span style='font-size:20px;'> ${list[i].time.ds} -  ${list[i].time.ts} name: ${list[i].from.name}</span></label>
+						</div>
+						<div style='display:flex;flex-direction:column;'>
+							<img src="${list[i].PP}" alt="${list[i].from.name}'s photo" width="50px" height="50px" class="pp">
+							<button onclick="msgArray[${i}-1].dellete()" style="background-color:red;color:white;border:0px;border-top-right-radius:10px;border-top-left-radius:10px;padding:5px;font-size:15px">delete message</button>
+							<button onclick="msgArray[${i}-1].edit()" style="background-color:gray;color:white;border:0px;border-bottom-right-radius:10px;border-bottom-left-radius:10px;padding:5px;font-size:15px">edit message</button>
+						</div>
 				`;
 			}
 		} else {
-			box.className='box01';
-			box.style=`background-color:${list[i].config.bg};display:flex;justify-content:flex-start;`;
+			box.className=`message frnd`;
 			box.innerHTML=`
-			<img src="${list[i].PP}" alt="${list[i].from.name}'s photo" width="50px" height="50px" class="pp">
-			<label style='color:${list[i].config.fg};'><span style='font-size:40px;'>${list[i].message}</span><br> <span style='font-size:20px;'> ${list[i].time.ds} -  ${list[i].time.ts} user id : ${list[i].from.id} name: ${list[i].from.name}</span></label>
+					<div style='display:flex;flex-direction:column;'>
+						<img src="${list[i].PP}" alt="${list[i].from.name}'s photo" width="50px" height="50px" class="pp">
+					</div>
+					<div class="frnd-msg" style="background-color:${list[i].config.bg};color:${list[i].config.fg};">
+						<label style='color:${list[i].config.fg};'><span style='font-size:40px;'>${list[i].message}</span><br> <span style='font-size:20px;'> ${list[i].time.ds} -  ${list[i].time.ts} user id: encrypted name: ${list[i].from.name}</span></label>
+					</div>
 			`;
+			//user id : ${list[i].from.id}
 		}
 		
 		body.appendChild(box);
