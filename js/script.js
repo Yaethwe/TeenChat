@@ -36,7 +36,7 @@ const ud =
 		username:"unknown",
 		id:404,
 		config:{
-			bg:"skyblue",
+			bg:"blue",
 			fg:"white",
 		},
 		img:"https://icons.iconarchive.com/icons/aha-soft/free-large-boss/512/Admin-icon.png",
@@ -59,7 +59,7 @@ class Message {
 		this.oid=oid;
 	}
 	dellete(){
-		if(confirm('Are you sure you want to dellete this message?')){
+		if(confirm('Are you sure you want to delete this message?')){
 			if (this.oid==ud.id){
 				ddbb.child(this.index).update({
 					message:"deleted message",

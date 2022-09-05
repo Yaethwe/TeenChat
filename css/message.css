@@ -18,7 +18,7 @@ body{
     padding: 10px;
     margin: 10px 20px;
     border-radius: 10px 0px 10px 10px;
-    background-color: skyblue;
+    background-color: blue;
     color: #fff;
 }
 .my-msg::before{
@@ -28,7 +28,7 @@ body{
     position:absolute;
     top:0;
     right:-17px;
-    background: linear-gradient(135deg, skyblue 0%, skyblue 50%, transparent 50%, transparent);
+    background: linear-gradient(135deg, blue 0%, blue 50%, transparent 50%, transparent);
 }
 
 .del-msg{
@@ -89,5 +89,5 @@ body{
     position:absolute;
     top:0;
     left:-17px;
-    background: linear-gradient(225deg, skyblue 0%,skyblue 50%, transparent 50%, transparent);
+    background: linear-gradient(225deg, blue 0%,blue 50%, transparent 50%, transparent);
 }
