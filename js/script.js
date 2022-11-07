@@ -9,6 +9,12 @@ const ownerDiv = document.querySelector('#owner');
 const functionDiv = document.querySelector('#functions');
 //const D404 = document.querySelector("#404D");
 
+function playMusic(){
+	var audio = document.getElementById('incomingAudio');
+	audio.play();
+}
+
+
 const fC = {
   apiKey: "AIzaSyBWPLhifWzVgL8SblP7d-VBwvbbyzq_HLk",
   authDomain: "mezalidatacenter.firebaseapp.com",
@@ -337,6 +343,7 @@ function showNotification(title, icon , body) {
           noti.close();
           window.parent.focus();
    }
+   playMusic();
 }
 
 function requestAndShowPermission() {
@@ -346,4 +353,5 @@ function requestAndShowPermission() {
       }
    });
 }
+
 
