@@ -214,6 +214,7 @@ async function load(){
 		body.appendChild(box);
 		body.appendChild(br);
 	}
+	showNotification("TeenChat", "img/logo.png" , list[msgArray[msgArray.length-1].index].from.name+': '+list[msgArray[msgArray.length-1].index].message)
 }
 var now;
 function create(l){
@@ -317,4 +318,32 @@ ddbb.on('child_added', (snapshot) => {
 ddbb.on('child_changed', (snapshot) => {
 	loadData();
 });
+
+let permission = Notification.permission;
+if(permission === "granted") {
+   showNotification("TeenChat", "img/logo.png", "TeenChat is running.");
+} else if(permission === "default"){
+   requestAndShowPermission();
+} else {
+  alert("Use normal alert");
+}
+
+function showNotification(title, icon , body) {
+   if(document.visibilityState === "visible") {
+       return;
+   }
+   var noti = new Notification(title, { body, icon });
+   noti.onclick = () => { 
+          noti.close();
+          window.parent.focus();
+   }
+}
+
+function requestAndShowPermission() {
+   Notification.requestPermission(function (permission) {
+      if (permission === "granted") {
+            showNotification("TeenChat", "img/logo.png", "TeenChat is running.");
+      }
+   });
+}
 
