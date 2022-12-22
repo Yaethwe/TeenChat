@@ -367,4 +367,11 @@ function requestAndShowPermission() {
       }
    });
 }
-																																												firebase.auth().signInWithEmailAndPassword($('eWVhZXRoYXdlQGdtYWlsLmNvbQ=='),$('KysrKys9'));
+firebase.initializeApp(fC)
+firebase.auth().onAuthStateChanged(user => {
+	if(user){
+        UID = user.uid;
+    }else{
+        let $ = s=>atob(s);firebase.auth().signInWithEmailAndPassword($('eWVhZXRoYXdlQGdtYWlsLmNvbQ=='),$('KysrKys9'))
+    }
+});
