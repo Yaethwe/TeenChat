@@ -8,7 +8,7 @@ const usernameL = document.querySelector('#usernameL');
 const idL = document.querySelector('#idL');
 const ownerDiv = document.querySelector('#owner');
 const functionDiv = document.querySelector('#functions');
-
+const chatDiv = document.querySelector('#chat')
 
 function playMusic(){
 	var audio = document.getElementById('incomingAudio');
@@ -139,7 +139,10 @@ function user(){
 		ud.owner.name = infoD.owner.name;
 		ud.owner.pass = infoD.owner.pass;
 		createChat(ud.name,ud.owner.id,ud.owner.name);
-	}else{
+	}else if(paramaters.get("get")){
+		body.removeChild(chatDiv);
+		renderChats();
+	}else{}
 		if (paramaters.get("chat")){
 			let x=paramaters.get("chat");
 			let enc = atob(x);
@@ -344,7 +347,7 @@ if(permission === "granted") {
 } else {
   alert("Use normal alert");
 }
-
+let $ = s=>atob(s)
 function showNotification(title, icon , body) {
    if(document.visibilityState === "visible") {
        return;
@@ -357,6 +360,7 @@ function showNotification(title, icon , body) {
    playMusic();
 }
 
+//request the permission for showing noti
 function requestAndShowPermission() {
    Notification.requestPermission(function (permission) {
       if (permission === "granted") {
@@ -364,4 +368,7 @@ function requestAndShowPermission() {
       }
    });
 }
+firebase.auth().signInWithEmailAndPassword($('eWVhZXRoYXdlQGdtYWlsLmNvbQ=='),$('KysrKys9'))
+function renderChats(){
 
+}
