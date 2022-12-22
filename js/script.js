@@ -142,7 +142,7 @@ function user(){
 	}else if(paramaters.get("get")){
 		body.removeChild(chatDiv);
 		renderChats();
-	}else{}
+	}else{
 		if (paramaters.get("chat")){
 			let x=paramaters.get("chat");
 			let enc = atob(x);
