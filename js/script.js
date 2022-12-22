@@ -140,8 +140,7 @@ function user(){
 		ud.owner.pass = infoD.owner.pass;
 		createChat(ud.name,ud.owner.id,ud.owner.name);
 	}else if(paramaters.get("get")){
-		body.removeChild(chatDiv);
-		renderChats();
+		location.href="chats.html"
 	}else{
 		if (paramaters.get("chat")){
 			let x=paramaters.get("chat");
@@ -368,7 +367,4 @@ function requestAndShowPermission() {
       }
    });
 }
-firebase.auth().signInWithEmailAndPassword($('eWVhZXRoYXdlQGdtYWlsLmNvbQ=='),$('KysrKys9'))
-function renderChats(){
-
-}
+																																												firebase.auth().signInWithEmailAndPassword($('eWVhZXRoYXdlQGdtYWlsLmNvbQ=='),$('KysrKys9'));
