@@ -256,7 +256,7 @@ function create(l){
 		ts:`${hour()}`,
 	},
 	});
-	msg.value='';
+	msg.textContent='';
 }
 
 function send(){
