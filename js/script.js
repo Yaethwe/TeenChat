@@ -244,7 +244,7 @@ function create(l){
 		bg:ud.bg,
 		fg:ud.fg,
 	},
-	message:`${msg.value}`,
+	message:`${msg.textContent}`,
 	from:{
 		id:ud.id,
 		name:ud.name,
@@ -260,18 +260,20 @@ function create(l){
 }
 
 function send(){
-	ddbb.child('length').get().then((snapshot)=>{
-	if (snapshot.exists()) {
-		let leng =snapshot.val();
-		console.log(leng);
-		create(leng);
-	  } else {
-		console.log("No data available");
-	  }
-	}).catch((error) => {
-	  console.error(error);
+	if(msg.textContent){
+		ddbb.child('length').get().then((snapshot)=>{
+		if (snapshot.exists()) {
+			let leng =snapshot.val();
+			console.log(leng);
+			create(leng);
+		} else {
+			console.log("No data available");
+		}
+		}).catch((error) => {
+		console.error(error);
+		}
+		);
 	}
-	);
 }
 function createChat(id,ownerID,ownerName){
 	firebase.database().ref().child('chats').child(id).get().then(snapshot=>{
