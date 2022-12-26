@@ -1,14 +1,13 @@
 const body = document.querySelector('#body');
 const sd = document.querySelector('#sd');
 const sentBtn = document.querySelector('#sentBtn');
-const downBtn = document.querySelector('#downBtn');
 const msg = document.querySelector('#msg');
 const profilePicture = document.querySelector('#profilePicture');
 const usernameL = document.querySelector('#usernameL');
 const idL = document.querySelector('#idL');
 const ownerDiv = document.querySelector('#owner');
 const functionDiv = document.querySelector('#functions');
-const chatDiv = document.querySelector('#chat')
+//const D404 = document.querySelector("#404D");
 
 function playMusic(){
 	var audio = document.getElementById('incomingAudio');
@@ -28,14 +27,12 @@ const fC = {
 };
 
 firebase.initializeApp(fC);
-
+let $ = s=>atob(s);firebase.auth().signInWithEmailAndPassword($('eWVhZXRoYXdlQGdtYWlsLmNvbQ=='),$('KysrKys9'))
 
 let list,ddbb;
 let chat,me;
 let url = location.href;
 let paramaters = (new URL(url)).searchParams;
-
-
 const userdata = {};
 const msgArray = [];
 const ud = 
@@ -139,8 +136,6 @@ function user(){
 		ud.owner.name = infoD.owner.name;
 		ud.owner.pass = infoD.owner.pass;
 		createChat(ud.name,ud.owner.id,ud.owner.name);
-	}else if(paramaters.get("get")){
-		location.href="chats.html"
 	}else{
 		if (paramaters.get("chat")){
 			let x=paramaters.get("chat");
@@ -155,9 +150,6 @@ function user(){
 			sd.style.display='flex';
 			ddbb = firebase.database().ref().child('chats').child(ud.chat);
 			sd.style.display='flex';
-		}else{
-			let a = location.href
-			location.href=a+"?chat=eyJjaGF0IjoiYW5vbnltb3VzIiwiZGF0YSI6eyJ1c2VybmFtZSI6ImFub255bW91cyIsImlkIjoiYW5vbnltb3VzIiwiY29uZmlnIjp7ImJnIjoiYmx1ZSIsImZnIjoid2hpdGUifSwiaW1nIjoiaHR0cHM6Ly9jb29sZGV2cy5uZXRsaWZ5LmFwcC9pbWcvZmF2LnBuZy8ifX0="
 		}
 	}
 }
@@ -229,7 +221,6 @@ async function load(){
 		body.appendChild(br);
 	}
 	showNotification("TeenChat", "img/logo.png" , list[msgArray[msgArray.length-1].index].from.name+': '+list[msgArray[msgArray.length-1].index].message)
-	scrollTo(0, document.body.scrollHeight);
 }
 var now;
 function create(l){
@@ -253,7 +244,7 @@ function create(l){
 		bg:ud.bg,
 		fg:ud.fg,
 	},
-	message:`${msg.textContent}`,
+	message:`${msg.value}`,
 	from:{
 		id:ud.id,
 		name:ud.name,
@@ -265,24 +256,22 @@ function create(l){
 		ts:`${hour()}`,
 	},
 	});
-	msg.textContent='';
+	msg.value='';
 }
 
 function send(){
-	if(msg.textContent){
-		ddbb.child('length').get().then((snapshot)=>{
-		if (snapshot.exists()) {
-			let leng =snapshot.val();
-			console.log(leng);
-			create(leng);
-		} else {
-			console.log("No data available");
-		}
-		}).catch((error) => {
-		console.error(error);
-		}
-		);
+	ddbb.child('length').get().then((snapshot)=>{
+	if (snapshot.exists()) {
+		let leng =snapshot.val();
+		console.log(leng);
+		create(leng);
+	  } else {
+		console.log("No data available");
+	  }
+	}).catch((error) => {
+	  console.error(error);
 	}
+	);
 }
 function createChat(id,ownerID,ownerName){
 	firebase.database().ref().child('chats').child(id).get().then(snapshot=>{
@@ -321,15 +310,13 @@ function cleanChat(){
 sentBtn.onclick= ()=>{
 	send();
 }
-downBtn.onclick= ()=>{
-	scrollTo(0, document.body.scrollHeight);
-}
 
 msg.addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
       send();
     }
 });
+
 ddbb.on('child_added', (snapshot) => {
 	loadData();
 });
@@ -346,7 +333,7 @@ if(permission === "granted") {
 } else {
   alert("Use normal alert");
 }
-let $ = s=>atob(s)
+
 function showNotification(title, icon , body) {
    if(document.visibilityState === "visible") {
        return;
@@ -359,7 +346,6 @@ function showNotification(title, icon , body) {
    playMusic();
 }
 
-//request the permission for showing noti
 function requestAndShowPermission() {
    Notification.requestPermission(function (permission) {
       if (permission === "granted") {
@@ -367,11 +353,3 @@ function requestAndShowPermission() {
       }
    });
 }
-firebase.initializeApp(fC)
-firebase.auth().onAuthStateChanged(user => {
-	if(user){
-        UID = user.uid;
-    }else{
-        let $ = s=>atob(s);firebase.auth().signInWithEmailAndPassword($('eWVhZXRoYXdlQGdtYWlsLmNvbQ=='),$('KysrKys9'))
-    }
-});
